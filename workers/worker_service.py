@@ -3,6 +3,7 @@ import threading
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
+import config
 from rag.retriever import retrieve_context
 from llm.inference import run_llm
 from common.logger import log
@@ -10,7 +11,7 @@ from common.logger import log
 app = FastAPI()
 
 current_tasks = 0
-MAX_CAPACITY = 2
+MAX_CAPACITY = getattr(config, "WORKER_MAX_CAPACITY", 8)
 task_lock = threading.Lock()
 
 
@@ -39,14 +40,14 @@ def process_task(req: WorkerRequest):
 
     with task_lock:
         current_tasks += 1
-        gpu_utilization_start = (current_tasks / MAX_CAPACITY) * 100
+        gpu_utilization_start = min((current_tasks / MAX_CAPACITY) * 100, 100)
 
     try:
         print(f"[WORKER] Received request: {req.query}", flush=True)
 
         print("[WORKER] Starting RAG retrieval...", flush=True)
         rag_start = time.perf_counter()
-        context = retrieve_context(req.query)
+        context = retrieve_context(req.query, getattr(config, "RAG_TOP_K", 3))
         rag_latency = time.perf_counter() - rag_start
         print(f"[WORKER] Finished RAG in {rag_latency:.2f}s", flush=True)
 
@@ -59,7 +60,7 @@ def process_task(req: WorkerRequest):
         total_latency = time.perf_counter() - start
 
         with task_lock:
-            gpu_utilization_end = (current_tasks / MAX_CAPACITY) * 100
+            gpu_utilization_end = min((current_tasks / MAX_CAPACITY) * 100, 100)
 
         return {
             "query": req.query,

@@ -12,13 +12,21 @@ def load_model():
         return
 
     try:
+        import torch
         from transformers import pipeline
 
+        cuda_available = torch.cuda.is_available()
+        device = 0 if cuda_available else -1
+
         print(f"[LLM] Loading model: {config.LLM_MODEL}", flush=True)
+        print(f"[LLM] CUDA available: {cuda_available}", flush=True)
+        print(f"[LLM] Device selected: {'GPU' if device == 0 else 'CPU'}", flush=True)
 
         GENERATOR = pipeline(
             "text-generation",
-            model=config.LLM_MODEL
+            model=config.LLM_MODEL,
+            device=device,
+            local_files_only=getattr(config, "LLM_LOCAL_FILES_ONLY", False)
         )
 
         print("[LLM] Model loaded successfully", flush=True)
@@ -51,7 +59,7 @@ Short answer:
     try:
         output = GENERATOR(
             prompt,
-            max_new_tokens=20,
+            max_new_tokens=getattr(config, "LLM_MAX_NEW_TOKENS", 20),
             do_sample=True,
             temperature=0.7,
             repetition_penalty=1.8,
@@ -62,7 +70,6 @@ Short answer:
         )
 
         text = output[0]["generated_text"]
-
         text = text.replace("Short answer:", "").replace("Answer:", "").strip()
 
         elapsed = time.perf_counter() - start

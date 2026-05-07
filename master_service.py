@@ -5,6 +5,7 @@ import os
 import time
 import random
 import threading
+import config
 
 app = FastAPI()
 
@@ -102,7 +103,7 @@ def submit(task: TaskRequest):
             response = requests.post(
                 worker_url,
                 json={"query": task.query},
-                timeout=180
+                timeout=getattr(config, "REQUEST_TIMEOUT", 300)
             )
             response.raise_for_status()
 
