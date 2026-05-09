@@ -26,7 +26,6 @@ def load_model():
             "text-generation",
             model=config.LLM_MODEL,
             device=device,
-            local_files_only=getattr(config, "LLM_LOCAL_FILES_ONLY", False)
         )
 
         print("[LLM] Model loaded successfully", flush=True)

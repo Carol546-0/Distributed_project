@@ -59,6 +59,14 @@ def metrics():
             }
         }
 
+def get_worker_display_name(worker_url: str) -> str:
+    if "rybsoldl" in worker_url:
+        return "Thunder GPU Worker 1"
+    if "hhpemb3g" in worker_url:
+        return "Thunder GPU Worker 2"
+    if "h3zowy5w" in worker_url:
+        return "Thunder GPU Worker 3"
+    return worker_url
 
 def get_least_loaded_worker(exclude=None):
     exclude = exclude or set()
@@ -87,14 +95,13 @@ def submit(task: TaskRequest):
     tried_workers = set()
 
     for _ in range(len(WORKERS)):
-        worker_url = get_least_loaded_worker(exclude=tried_workers)
-
-        if worker_url is None:
-            break
-
-        tried_workers.add(worker_url)
-
         with metrics_lock:
+            worker_url = get_least_loaded_worker(exclude=tried_workers)
+
+            if worker_url is None:
+                break
+
+            tried_workers.add(worker_url)
             worker_load[worker_url] += 1
 
         try:
@@ -119,13 +126,13 @@ def submit(task: TaskRequest):
 
             print(f"[MASTER] Success from worker: {worker_url}", flush=True)
 
-            worker_id = worker_url.split("worker_node_")[-1].split(":")[0]
+            worker_id = get_worker_display_name(worker_url)
 
             if errors:
                 fault_msg = " / ".join(
-                f"Worker {e['worker'].split('worker_node_')[-1].split(':')[0]} failed"
-                for e in errors
-            )
+                    f"{get_worker_display_name(e['worker'])} failed"
+                    for e in errors
+                )
             else:
                 fault_msg = "No failed attempts"
 
