@@ -100,7 +100,6 @@ Generated Response
 | --------------- | --------------------------- |
 | Python          | Main programming language   |
 | FastAPI         | REST API services           |
-| Docker Compose  | Container orchestration     |
 | Transformers    | LLM inference               |
 | PyTorch         | GPU backend                 |
 | Thunder Compute | GPU cloud workers           |
@@ -148,35 +147,6 @@ Project/
 
 ---
 
-# Running the System
-
-## Local Docker Deployment
-
-### Start containers
-
-```powershell
-cd "D:\Me\Carol\College\Semester 6\Distributed Computing\Project"
-docker compose up
-```
-
-### Health check
-
-```powershell
-Invoke-RestMethod http://localhost:7000/health
-```
-
-### Single request test
-
-```powershell
-Invoke-RestMethod `
-  -Uri http://localhost:7000/submit `
-  -Method POST `
-  -ContentType "application/json" `
-  -Body '{"query":"Explain load balancing"}' `
-  -TimeoutSec 300
-```
-
----
 
 # Thunder Compute GPU Deployment
 
@@ -267,7 +237,7 @@ python tests/concurrent_custom.py 100 --retries 3
 ## 1000 Concurrent Users
 
 ```powershell
-python tests/concurrent_custom.py 1000 --retries 5
+python tests/concurrent_custom.py 1000 --retries 3
 ```
 
 ## Fault Tolerance Test
@@ -337,29 +307,13 @@ using multiple Thunder GPU workers.
 
 * Lightweight DistilGPT2 model used for local efficiency
 * GPU utilization partially simulated
-* Local Docker deployment limited by laptop hardware
 * Real production systems would require:
-
   * larger GPU clusters
-  * distributed queues
-  * orchestration systems such as Kubernetes
+  
 
----
 
-# Future Improvements
-
-* Larger LLM models
-* Kubernetes deployment
-* Asynchronous batching
-* Distributed queue system
-* Vector databases
-* Autoscaling GPU workers
-* Real GPU monitoring dashboards
-
----
 
 # Authors
 
-* [Student Name]
-* [Student Name]
-* [Student Name]
+* Joseph Nagy Naguib 23P0338
+* Carol Kamal Magdy 23P0328
