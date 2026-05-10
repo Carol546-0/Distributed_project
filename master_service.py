@@ -60,12 +60,12 @@ def metrics():
         }
 
 def get_worker_display_name(worker_url: str) -> str:
-    if "rybsoldl" in worker_url:
-        return "Thunder GPU Worker 1"
-    if "hhpemb3g" in worker_url:
-        return "Thunder GPU Worker 2"
-    if "h3zowy5w" in worker_url:
-        return "Thunder GPU Worker 3"
+    if "x4kvd2qs" in worker_url:
+        return "Worker 1"
+    if "0s139wnm" in worker_url:
+        return "Worker 2"
+    if "ts4qi2re" in worker_url:
+        return "Worker 3"
     return worker_url
 
 def get_least_loaded_worker(exclude=None):

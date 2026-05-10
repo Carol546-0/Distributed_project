@@ -4,7 +4,7 @@
 # =========================
 
 LLM_MODEL = "distilgpt2"
-LLM_MAX_NEW_TOKENS = 10
+LLM_MAX_NEW_TOKENS = 8
 
 # If True, HuggingFace will try to load model files from local cache only.
 # Use False the first time you download the model.
