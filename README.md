@@ -125,22 +125,12 @@ Project/
 ├── workers/
 │   └── worker_service.py
 │
-├── docker_build/
-│   ├── master.Dockerfile
-│   ├── worker.Dockerfile
-│   ├── master_requirements.txt
-│   └── worker_requirements.txt
-│
 ├── tests/
 │   ├── test_health.py
 │   ├── test_single_request.py
-│   ├── concurrent_10.py
-│   ├── concurrent_15.py
-│   ├── concurrent_custom.py
-│   └── test_fault_tolerance.py
+│   └── concurrent_custom.py
 │
 ├── config.py
-├── docker-compose.yml
 ├── master_service.py
 └── README.md
 ```
