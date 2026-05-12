@@ -14,7 +14,7 @@ LLM_LOCAL_FILES_ONLY = False
 # RAG Configuration
 # =========================
 
-RAG_TOP_K = 3
+RAG_TOP_K = 1
 
 # =========================
 # Worker / GPU Simulation

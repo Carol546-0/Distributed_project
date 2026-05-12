@@ -47,7 +47,7 @@ def process_task(req: WorkerRequest):
 
         print("[WORKER] Starting RAG retrieval...", flush=True)
         rag_start = time.perf_counter()
-        context = retrieve_context(req.query, getattr(config, "RAG_TOP_K", 3))
+        context = retrieve_context(req.query, getattr(config, "RAG_TOP_K", 1))
         rag_latency = time.perf_counter() - rag_start
         print(f"[WORKER] Finished RAG in {rag_latency:.2f}s", flush=True)
 

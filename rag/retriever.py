@@ -85,7 +85,7 @@ def _build_vector_db():
     print(f"[RAG] Vector DB ready with {len(DOCS)} documents", flush=True)
 
 
-def retrieve_context(query: str, top_k: int = 3) -> str:
+def retrieve_context(query: str, top_k: int = 1) -> str:
     global INDEX, DOCS
 
     _build_vector_db()
@@ -102,12 +102,17 @@ def retrieve_context(query: str, top_k: int = 3) -> str:
 
     selected: List[Tuple[float, str]] = []
 
+    MIN_SCORE = 0.35
+
     for score, idx in zip(scores[0], indices[0]):
         if idx == -1:
             continue
 
-        selected.append((float(score), DOCS[idx]))
+        if float(score) < MIN_SCORE:
+            continue
 
+        selected.append((float(score), DOCS[idx]))
+        
     if not selected:
         return ""
 
