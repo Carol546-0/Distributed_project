@@ -1,0 +1,1 @@
+Scalability is achieved by adding more GPU worker nodes, increasing parallelism, and distributing requests across the cluster.

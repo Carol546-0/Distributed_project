@@ -1,0 +1,1 @@
+GPU inference accelerates LLM text generation by using CUDA-enabled hardware to process model computations faster than CPU-only execution.

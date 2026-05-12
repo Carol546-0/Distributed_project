@@ -1,0 +1,1 @@
+Retrieval-Augmented Generation retrieves relevant context from a knowledge base before sending the query to the LLM, improving answer relevance.

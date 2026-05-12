@@ -58,13 +58,12 @@ def metrics():
                 "worker_load": dict(worker_load)
             }
         }
-
 def get_worker_display_name(worker_url: str) -> str:
-    if "x4kvd2qs" in worker_url:
+    if "hhhluqyn" in worker_url:
         return "Worker 1"
-    if "0s139wnm" in worker_url:
+    if "yfm3su7z" in worker_url:
         return "Worker 2"
-    if "ts4qi2re" in worker_url:
+    if "ftlbkokg" in worker_url:
         return "Worker 3"
     return worker_url
 

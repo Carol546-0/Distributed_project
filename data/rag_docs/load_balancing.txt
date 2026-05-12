@@ -1,0 +1,1 @@
+Load balancing distributes incoming requests across multiple GPU worker nodes to improve throughput, reduce overload, and keep the system responsive under high concurrency.

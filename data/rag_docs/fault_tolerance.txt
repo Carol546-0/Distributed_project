@@ -1,0 +1,1 @@
+Fault tolerance allows the master node to retry failed requests on healthy GPU workers when one worker fails, crashes, or becomes unavailable.
